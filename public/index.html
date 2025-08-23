@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campus Care Management</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd, #f5f6fa);
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        nav {
+            background-color: white;
+            padding: 10px 20px;
+            display: none;
+            gap: 15px;
+            justify-content: center;
+        }
+        nav a {
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            color: #007BFF;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        nav a:hover { background-color: #eaf2ff; }
+        section {
+            display: none;
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        section.active { display: block; }
+        #modeSelect { text-align: center; padding: 50px; font-size: 1.2em; }
+        #modeSelect h2 { font-size: 2em; margin-bottom: 20px; color: #007BFF; }
+        select, input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #0056b3; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+        th, td { border: 1px solid #eee; padding: 10px; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .notification {
+            background: #fff8e1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ffecb3;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Campus Care Management
+</header>
+
+<nav id="mainNav">
+    <a href="#" onclick="showSection('home')">🏠 Home</a>
+    <a href="#" onclick="showSection('submit')" id="userSubmit">📝 Submit Ticket</a>
+    <a href="#" onclick="showSection('tickets'); updateTicketTable();">📋 View Tickets</a>
+    <a href="#" onclick="showSection('notifications'); updateNotificationList();">🔔 Notifications</a>
+    <a href="#" onclick="showSection('postNotification')" id="postNotifyBtn" style="display:none;">📢 Post Notification</a>
+    <a href="#" onclick="logout()">🚪 Logout</a>
+</nav>
+
+<section id="modeSelect" class="active">
+    <h2>Welcome to Campus Care</h2>
+    <p>Select your mode to get started</p>
+    <select id="modeChoice" style="max-width:300px; margin:auto; display:block;">
+        <option value="user">User Mode</option>
+        <option value="admin">Admin Mode</option>
+    </select>
+    <button style="max-width:300px; margin:auto; display:block;" onclick="goToLogin()">Proceed</button>
+</section>
+
+<section id="login">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label>Username:</label>
+        <input type="text" id="username" required>
+        <label>Password:</label>
+        <input type="password" id="password" required>
+        <div id="classSelect" style="display:none;">
+            <label>Class:</label>
+            <select id="userClass">
+                <option>CD</option>
+                <option>CSE</option>
+                <option>EC</option>
+                <option>MECH</option>
+                <option>CIVIL</option>
+                <option>AI</option>
+            </select>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</section>
+
+<section id="home">
+    <h2>Welcome</h2>
+    <p>Submit and track complaints or feedback for a better campus experience.</p>
+</section>
+
+<section id="submit">
+    <h2>Submit a Ticket</h2>
+    <form id="ticketForm">
+        <label>Category:</label>
+        <select name="category">
+            <option>Complaint</option>
+            <option>Feedback</option>
+        </select>
+        <label>Description:</label>
+        <textarea name="description" rows="5" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<section id="tickets">
+    <h2>All Tickets</h2>
+    <table id="ticketTable">
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Class</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th id="actionHeader">Action</th>
+        </tr>
+    </table>
+</section>
+
+<section id="notifications">
+    <h2>Notifications</h2>
+    <div id="notificationList"></div>
+</section>
+
+<section id="postNotification">
+    <h2>Post Notification</h2>
+    <form id="notifyForm">
+        <label>Message:</label>
+        <textarea id="notifyMsg" rows="3" required></textarea>
+        <button type="submit">Post</button>
+    </form>
+</section>
+
+<script>
+    let currentUser = null;
+    let selectedMode = 'user';
+
+    function showSection(id) {
+        document.querySelectorAll('section').forEach((sec) => sec.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function goToLogin() {
+        selectedMode = document.getElementById('modeChoice').value;
+        document.getElementById('classSelect').style.display = selectedMode === 'user' ? 'block' : 'none';
+        showSection('login');
+    }
+
+    async function me() {
+        const res = await fetch('/api/me', { credentials: 'include' });
+        const data = await res.json();
+        return data.user;
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const className = selectedMode === 'user' ? document.getElementById('userClass').value : undefined;
+
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ mode: selectedMode, username, password, className })
+        });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert('❌ ' + (err.error || 'Login failed'));
+            return;
+    }
+        const data = await res.json();
+        currentUser = data.user;
+        document.getElementById('mainNav').style.display = 'flex';
+        document.getElementById('userSubmit').style.display = currentUser.role === 'admin' ? 'none' : 'inline';
+        document.getElementById('postNotifyBtn').style.display = currentUser.role === 'admin' ? 'inline' : 'none';
+        document.getElementById('actionHeader').style.display = currentUser.role === 'admin' ? 'table-cell' : 'none';
+        showSection('home');
+        updateTicketTable();
+        updateNotificationList();
+    });
+
+    async function logout() {
+        await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+        currentUser = null;
+        document.getElementById('mainNav').style.display = 'none';
+        showSection('modeSelect');
+    }
+
+    document.getElementById('ticketForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const payload = {
+            category: form.category.value,
+            description: form.description.value
+        };
+        const res = await fetch('/api/tickets', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(payload)
+        });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert('❌ ' + (err.error || 'Failed to submit ticket'));
+            return;
+        }
+        form.reset();
+        alert('✅ Ticket submitted!');
+        updateTicketTable();
+        showSection('tickets');
+    });
+
+    async function updateTicketTable() {
+        const table = document.getElementById('ticketTable');
+        const isAdmin = currentUser && currentUser.role === 'admin';
+
+        table.innerHTML = `
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Class</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Status</th>
+                ${isAdmin ? '<th>Action</th>' : ''}
+            </tr>`;
+
+        const res = await fetch('/api/tickets', { credentials: 'include' });
+        if (!res.ok) return;
+        const data = await res.json();
+        (data.tickets || []).forEach((t) => {
+            const row = table.insertRow();
+            row.innerHTML = `
+                <td>${t.id}</td>
+                <td>${t.user}</td>
+                <td>${t.className || '-'}</td>
+                <td>${t.category}</td>
+                <td>${t.description}</td>
+                <td>${t.status}</td>
+                ${isAdmin && t.status !== 'Resolved' ? `<td><button onclick="resolveTicket(${t.id})">Mark Resolved</button></td>` : ''}
+            `;
+        });
+    }
+
+    async function resolveTicket(id) {
+        const res = await fetch(`/api/tickets/${id}/resolve`, {
+            method: 'PATCH',
+            credentials: 'include'
+        });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert('❌ ' + (err.error || 'Failed to resolve ticket'));
+            return;
+        }
+        alert('✅ Ticket marked as Resolved');
+        updateTicketTable();
+    }
+
+    document.getElementById('notifyForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const msg = document.getElementById('notifyMsg').value.trim();
+        if (!msg) return;
+        const res = await fetch('/api/notifications', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ message: msg })
+        });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert('❌ ' + (err.error || 'Failed to post notification'));
+            return;
+        }
+        document.getElementById('notifyMsg').value = '';
+        alert('✅ Notification posted!');
+        updateNotificationList();
+        showSection('notifications');
+    });
+
+    async function updateNotificationList() {
+        const list = document.getElementById('notificationList');
+        list.innerHTML = '';
+        const res = await fetch('/api/notifications', { credentials: 'include' });
+        if (!res.ok) return;
+        const data = await res.json();
+        (data.notifications || []).forEach((n) => {
+            const div = document.createElement('div');
+            div.className = 'notification';
+            div.innerHTML = `<strong>${n.date}</strong><br>${n.message}`;
+            list.appendChild(div);
+        });
+    }
+
+    (async function init() {
+        const user = await me();
+        if (user) {
+            currentUser = user;
+            document.getElementById('mainNav').style.display = 'flex';
+            document.getElementById('userSubmit').style.display = currentUser.role === 'admin' ? 'none' : 'inline';
+            document.getElementById('postNotifyBtn').style.display = currentUser.role === 'admin' ? 'inline' : 'none';
+            document.getElementById('actionHeader').style.display = currentUser.role === 'admin' ? 'table-cell' : 'none';
+            showSection('home');
+            updateTicketTable();
+            updateNotificationList();
+        } else {
+            showSection('modeSelect');
+        }
+    })();
+</script>
+
+</body>
+</html>
