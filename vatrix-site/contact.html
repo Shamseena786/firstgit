@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact – Vatrix POS & ERP</title>
+    <meta name="description" content="Get in touch for a demo or quote for Vatrix POS & ERP.">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <style>
+      .contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; }
+      .contact-form label { display: block; margin: 10px 0 6px; }
+      .contact-form input, .contact-form textarea { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--color-border); background: var(--color-bg-elev); color: var(--color-text); }
+      .contact-form button { margin-top: 12px; }
+      @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="./">
+          <span class="logo" aria-hidden="true"></span>
+          <span class="name">Vatrix</span>
+        </a>
+        <button id="navToggle" class="menu-toggle" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+        <nav id="primaryNav" class="primary-nav" aria-label="Primary Navigation">
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./inventory.html">Features</a></li>
+            <li><a href="./pricing.html">Pricing</a></li>
+            <li><a href="./testimonials.html">Testimonials</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <span class="eyebrow">Contact us</span>
+          <h1>Let’s schedule your demo</h1>
+          <p class="sub">Call, email, or message us. We’ll show how Vatrix reduces costs, boosts insights, and frees up time.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="container contact-grid">
+          <div class="panel">
+            <h2 class="section-title">Contact details</h2>
+            <p><strong>Phone</strong>: <a href="tel:+918123019785">+91 81230 19785</a></p>
+            <p><strong>Email</strong>: <a href="mailto:buylap3916@gmail.com">buylap3916@gmail.com</a></p>
+            <p><strong>Instagram</strong>: <a href="https://instagram.com/buylap3916" target="_blank" rel="noopener noreferrer">@buylap3916</a></p>
+            <p class="muted">Cloud or on‑premise deployments. Local tax ready.</p>
+          </div>
+
+          <div class="panel">
+            <h2 class="section-title">Send a message</h2>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We\'ll reach out shortly.'); this.reset();">
+              <label for="name">Name</label>
+              <input id="name" name="name" required>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+              <button class="btn primary" type="submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Vatrix</div>
+        <div class="muted">We’re here to help you grow smarter.</div>
+      </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+  </html>
+
