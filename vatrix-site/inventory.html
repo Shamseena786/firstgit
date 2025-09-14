@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inventory Control – Vatrix POS & ERP</title>
+    <meta name="description" content="Keep stock in check with flexible item tracking, barcode integration, quality traceability, and smart reordering across multiple locations.">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="./">
+          <span class="logo" aria-hidden="true"></span>
+          <span class="name">Vatrix</span>
+        </a>
+        <button id="navToggle" class="menu-toggle" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+        <nav id="primaryNav" class="primary-nav" aria-label="Primary Navigation">
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./inventory.html">Features</a></li>
+            <li><a href="./pricing.html">Pricing</a></li>
+            <li><a href="./testimonials.html">Testimonials</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <span class="eyebrow">Feature spotlight</span>
+          <h1>Inventory Control</h1>
+          <p class="sub">Keep stock in check — with Vatrix you get flexible item tracking, barcode integration, quality traceability, smart reordering across multiple locations. No more overstock or stockouts.</p>
+          <div class="btns">
+            <a class="btn primary" href="./contact.html">Request a Demo</a>
+            <a class="btn" href="./pricing.html">See Pricing</a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container cards">
+          <div class="card">
+            <h3>Multi-location</h3>
+            <p>Centralize SKUs and track stock levels across branches and warehouses with real-time updates.</p>
+          </div>
+          <div class="card">
+            <h3>Barcode & labeling</h3>
+            <p>Generate and scan barcodes to accelerate receiving, picking, and checkout accuracy.</p>
+          </div>
+          <div class="card">
+            <h3>Reorder intelligence</h3>
+            <p>Automated reorder points and suggestions prevent stockouts while minimizing excess inventory.</p>
+          </div>
+          <div class="card">
+            <h3>Traceability</h3>
+            <p>Batch/lot tracking and quality controls ensure you can trace items end-to-end.</p>
+          </div>
+          <div class="card">
+            <h3>Adjustments & audits</h3>
+            <p>Manage cycle counts, adjustments, and variance reports with a clear audit trail.</p>
+          </div>
+          <div class="card">
+            <h3>Supplier workflows</h3>
+            <p>PO creation, approvals, and receiving integrated with your stock ledger.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Vatrix</div>
+        <div class="muted">Inventory that works with you, not against you.</div>
+      </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+  </html>
+

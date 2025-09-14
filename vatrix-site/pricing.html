@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pricing – Vatrix POS & ERP</title>
+    <meta name="description" content="Transparent pricing with flexible plans. POS Elite, POS Professional, and ERP Solution. Training and support included.">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="./">
+          <span class="logo" aria-hidden="true"></span>
+          <span class="name">Vatrix</span>
+        </a>
+        <button id="navToggle" class="menu-toggle" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+        <nav id="primaryNav" class="primary-nav" aria-label="Primary Navigation">
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./inventory.html">Features</a></li>
+            <li><a href="./pricing.html">Pricing</a></li>
+            <li><a href="./testimonials.html">Testimonials</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <span class="eyebrow">Transparent pricing</span>
+          <h1>Flexible plans for every stage</h1>
+          <p class="sub">All plans include training and support. Choose monthly, annual, or one-time lifetime license.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="container pricing-grid">
+          <div class="card">
+            <h3>POS Elite</h3>
+            <p class="muted">For startups and small outlets</p>
+            <ul>
+              <li>Single location POS</li>
+              <li>Basic inventory</li>
+              <li>Standard reports</li>
+              <li>Email support</li>
+            </ul>
+            <p class="price">Monthly / Annual / Lifetime</p>
+            <p><a class="btn primary" href="./contact.html">Get Started</a></p>
+          </div>
+          <div class="card">
+            <h3>POS Professional</h3>
+            <p class="muted">For multi-location or advanced needs</p>
+            <ul>
+              <li>Multi-branch POS</li>
+              <li>Advanced inventory</li>
+              <li>Custom dashboards</li>
+              <li>Priority support</li>
+            </ul>
+            <p class="price">Monthly / Annual / Lifetime</p>
+            <p><a class="btn primary" href="./contact.html">Talk to Sales</a></p>
+          </div>
+          <div class="card">
+            <h3>ERP Solution</h3>
+            <p class="muted">Full business lifecycle integration</p>
+            <ul>
+              <li>Procurement to accounting</li>
+              <li>Custom workflows</li>
+              <li>Implementation services</li>
+              <li>Premium support</li>
+            </ul>
+            <p class="price">Custom quote</p>
+            <p><a class="btn primary" href="./contact.html">Request Quote</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Vatrix</div>
+        <div class="muted">Training and support included in every plan.</div>
+      </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+  </html>
+
